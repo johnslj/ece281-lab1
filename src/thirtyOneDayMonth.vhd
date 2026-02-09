@@ -56,24 +56,30 @@ library ieee;
 entity thirtyOneDayMonth is 
   port(
 	i_A : in std_logic; -- one of four inputs
-	
-	
-	
+	i_B : in std_logic;
+	i_C : in std_logic;
+	i_D : in std_logic;
+	o_Y : out std_logic
 						-- output
   );
 end thirtyOneDayMonth;
 
 architecture thirtyOneDayMonth_arch of thirtyOneDayMonth is 
-	-- include components declarations and signals
-	
 	--signals internal to the architecture are declared and initialized such as w_sel
-  
+    signal w_sel : std_logic_vector (1 downto 0); -- MUX sel
 begin
 	-- CONCURRENT STATEMENTS---------------------------------------
 	--assigning names to reflect original schematics (for ease of understanding if you wish to)
-	w_sel(0) <= i_C;	-- one
+	w_sel(0) <= i_D;	-- one
+	w_sel(1) <= i_A;    -- two
+	
 	--finish assigning signals
 	
 	--enter your logic here to implement the mux.  See VHDL reference sheet for MUX syntax.	
+	with w_sel select
+	   o_Y <= '0' when "00",
+	   '1' when "01",
+	   '1' when "10",
+	   '0' when others;
 	---------------------------------------------------------------	
 end thirtyOneDayMonth_arch;
